@@ -27,6 +27,17 @@ public class HelloWorld {
 $ javac HelloWorld.java
 $ java HelloWorld
 
+---
+
+Need to install the Checkstyle tool.
+From /usr/local/algs4/,
+$ sudo curl -O "https://algs4.cs.princeton.edu/linux/checkstyle.zip"
+$ sudo curl -O "https://algs4.cs.princeton.edu/linux/checkstyle-suppressions.xml"
+$ sudo curl -O "https://algs4.cs.princeton.edu/linux/checkstyle-{algs4,cos226,coursera}.xml"
+$ sudo curl -O "https://algs4.cs.princeton.edu/linux/checkstyle-{algs4,cos226,coursera}"
+$ sudo unzip checkstyle.zip
+$ sudo chmod 755 checkstyle-{algs4,cos226,coursera}
+$ sudo mv checkstyle-{algs4,cos226,coursera} /usr/local/bin
 
 
 Oct 28, 2017
