@@ -15,13 +15,10 @@ import edu.princeton.cs.algs4.StdRandom;
 
 public class PercolationStats {
 
-    // array to store the percolation threshold.
-    private double[] threshold;
-
-    private double mu;  // mean
-    private double sigma;  // std dev
-    private double confLo;
-    private double confHi;
+    private final double mu;  // mean
+    private final double sigma;  // std dev
+    private final double confLo;
+    private final double confHi;
 
     // perform T independent computational experiments on an N-by-N grid
     public PercolationStats(int n, int t) {
@@ -34,7 +31,8 @@ public class PercolationStats {
             throw new IllegalArgumentException("Input T is out of bounds");
         } 
 
-        threshold = new double[t];
+        // array to store the percolation threshold.
+        double[] threshold = new double[t];
 
         for (int k = 0; k < t; ++k) {
             // At each experiment.

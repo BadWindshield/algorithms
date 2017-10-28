@@ -4,6 +4,9 @@
 // To run the Checkstyle tool,
 // $ checkstyle-algs4 Percolation.java
 
+// To run the PMD tool,
+// $ pmd-algs4 Percolation.java
+
 
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
@@ -18,7 +21,7 @@ public class Percolation {
     // (N^2 + 2) x 1 array.
     private boolean[] siteOpen;
  
-    private int n;
+    private final int n;
 
     // Address the percolation question; connect to both top & bottom virtual sites.
     private WeightedQuickUnionUF uf; 
@@ -26,7 +29,7 @@ public class Percolation {
     // Address the "fullness" question; connect to the top virtual site only.
     private WeightedQuickUnionUF ufTop;  
 
-    private int indexTop, indexBottom;  // indices for the virtual top and bottom.
+    private final int indexTop, indexBottom;  // indices for the virtual top and bottom.
 
     // create N-by-N grid, with all sites blocked
     public Percolation(int nNew) {

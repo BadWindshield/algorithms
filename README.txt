@@ -6,14 +6,12 @@ javac 1.8.0_131
 
 
 Download the textbook libraries from algs4.jar and the Java wrapper scripts from javac-algs4, javac-cos226, javac-coursera, java-algs4, java-cos226, and java-coursera.
-$ mkdir algs4
-$ cd algs4/
-$ curl -O "https://algs4.cs.princeton.edu/code/algs4.jar"
-$ curl -O "https://algs4.cs.princeton.edu/linux/{javac,java}-{algs4,cos226,coursera}"
-$ sudo mv {javac,java}-{algs4,cos226,coursera} /usr/local/bin
-
 $ sudo mkdir /usr/local/algs4
-$ sudo mv algs4.jar /usr/local/algs4
+$ cd /usr/local/algs4
+$ sudo curl -O "https://algs4.cs.princeton.edu/code/algs4.jar"
+$ sudo curl -O "https://algs4.cs.princeton.edu/linux/{javac,java}-{algs4,cos226,coursera}"
+$ sudo chmod 755 {javac,java}-{algs4,cos226,coursera}
+$ sudo mv {javac,java}-{algs4,cos226,coursera} /usr/local/bin
 
 
 Compile and run the "Hello World" test program.
@@ -38,6 +36,16 @@ $ sudo curl -O "https://algs4.cs.princeton.edu/linux/checkstyle-{algs4,cos226,co
 $ sudo unzip checkstyle.zip
 $ sudo chmod 755 checkstyle-{algs4,cos226,coursera}
 $ sudo mv checkstyle-{algs4,cos226,coursera} /usr/local/bin
+
+
+Install the PMD tool.
+From /usr/local/algs4/,
+$ sudo curl -O "https://algs4.cs.princeton.edu/linux/pmd.{zip,xml}"
+$ sudo curl -O "https://algs4.cs.princeton.edu/linux/pmd-{algs4,cos226,coursera}"
+$ sudo unzip pmd.zip
+$ sudo chmod 755 pmd-{algs4,cos226,coursera}
+$ sudo mv pmd-{algs4,cos226,coursera} /usr/local/bin
+
 
 
 Oct 28, 2017
