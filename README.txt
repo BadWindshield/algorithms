@@ -1,3 +1,36 @@
+
+
+Check my Java's version:
+$ javac -version
+javac 1.8.0_131
+
+
+Download the textbook libraries from algs4.jar and the Java wrapper scripts from javac-algs4, javac-cos226, javac-coursera, java-algs4, java-cos226, and java-coursera.
+$ mkdir algs4
+$ cd algs4/
+$ curl -O "https://algs4.cs.princeton.edu/code/algs4.jar"
+$ curl -O "https://algs4.cs.princeton.edu/linux/{javac,java}-{algs4,cos226,coursera}"
+$ sudo mv {javac,java}-{algs4,cos226,coursera} /usr/local/bin
+
+$ sudo mkdir /usr/local/algs4
+$ sudo mv algs4.jar /usr/local/algs4
+
+
+Compile and run the "Hello World" test program.
+
+public class HelloWorld {
+    public static void main(String[] args) { 
+        System.out.println("Hello, World");
+    }
+}
+
+$ javac HelloWorld.java
+$ java HelloWorld
+
+
+
+Oct 28, 2017
+============
 Set up a git repo on Caliper.
 
 1. Log in as user "git" and add the ssh public key.
@@ -39,3 +72,4 @@ $ git push origin master
 5. To clone the repo.
 
   $ git clone git@localhost:/home/git/git/algorithms.git
+
