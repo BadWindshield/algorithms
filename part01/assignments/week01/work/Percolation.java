@@ -7,6 +7,9 @@
 // To run the PMD tool,
 // $ pmd-algs4 Percolation.java
 
+// To run the unit tests,
+// $ java-algs4 PercolationVisualizer ../test/percolation/input20.txt
+
 
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
@@ -39,7 +42,7 @@ public class Percolation {
 
         n = nNew;
         final int nSq = n * n;
-        siteOpen = new boolean[ nSq+2 ];
+        siteOpen = new boolean[nSq+2];
 
         // Initialize sites to the blocked state.
         for (int k = 0; k < nSq; ++k) {
@@ -69,10 +72,10 @@ public class Percolation {
 
     private void checkCoor(int i, int j) {
         if (i <= 0 || i > n) {
-            throw new IndexOutOfBoundsException("row index i out of bounds");
+            throw new IllegalArgumentException("row index i out of bounds");
         }
         if (j <= 0 || j > n) {
-            throw new IndexOutOfBoundsException("column index j out of bounds");
+            throw new IllegalArgumentException("column index j out of bounds");
         }
     }
 
