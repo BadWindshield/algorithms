@@ -72,10 +72,10 @@ public class Percolation {
 
     private void checkCoor(int i, int j) {
         if (i <= 0 || i > n) {
-            throw new IllegalArgumentException("row index i out of bounds");
+            throw new IllegalArgumentException("Row index i out of bounds; i = " + i + "; n = " + n);
         }
         if (j <= 0 || j > n) {
-            throw new IllegalArgumentException("column index j out of bounds");
+            throw new IllegalArgumentException("Column index j out of bounds; j = " + j + "; n = " + n);
         }
     }
 
@@ -168,7 +168,7 @@ public class Percolation {
 
     public static void main(final String[] args) {
 
-        if (false) {
+        if (true) {
             final int N = 3;
             Percolation per = new Percolation(N);
 
