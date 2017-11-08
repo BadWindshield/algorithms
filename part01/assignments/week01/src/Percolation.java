@@ -23,6 +23,7 @@ public class Percolation {
 
     // (N^2 + 2) x 1 array.
     private boolean[] siteOpen;
+    private int numSitesOpen;
  
     private final int n;
 
@@ -48,6 +49,8 @@ public class Percolation {
         for (int k = 0; k < nSq; ++k) {
             siteOpen[k] = false;
         }
+        numSitesOpen = 0;
+
         // The virtual sites remain open.
         siteOpen[nSq] = true;
         siteOpen[nSq+1] = true;
@@ -91,6 +94,7 @@ public class Percolation {
         if (!siteOpen[q]) {
             // Need to open the site.
             siteOpen[q] = true;
+            numSitesOpen++;
 
             // Connect the site to the neighbors if they are open too.
             // Top
@@ -142,15 +146,7 @@ public class Percolation {
 
     // number of open sites
     public int numberOfOpenSites() {
-        int count = 0;
-        for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= n; j++) {
-                if (isOpen(i, j)) {
-                    count++;
-                }
-            }
-        }
-        return count;
+        return numSitesOpen;
     }
 
     // does the system percolate?
