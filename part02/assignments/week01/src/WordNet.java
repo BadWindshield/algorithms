@@ -1,8 +1,8 @@
 // To compile this code,
-// $ javac-algs4 Percolation.java
+// $ javac-algs4 WordNet.java
 
 // To run the Checkstyle tool,
-// $ checkstyle-algs4 Percolation.java
+// $ checkstyle-algs4 WordNet.java
 
 // To run the PMD tool,
 // $ pmd-algs4 Percolation.java
@@ -11,29 +11,45 @@
 // $ java-algs4 PercolationVisualizer ../test/percolation/input20.txt
 
 
+import edu.princeton.cs.algs4.Bag;
 import edu.princeton.cs.algs4.Digraph;
 import edu.princeton.cs.algs4.DirectedCycle;
 import edu.princeton.cs.algs4.In;
 
 
-import java.util.ArrayList;
-import java.util.TreeMap;
+import java.util.HashMap;
 
 
 public class WordNet {
-    private final SAP sap;
+    //private final SAP sap;
     private final HashMap<Integer, String> id2synset;
     private final HashMap<String, Bag<Integer>> noun2ids;
 
-   // constructor takes the name of the two input files
+    // The constructor takes the name of the two input files.
+
+    // The file synsets.txt lists all the (noun) synsets in WordNet.
+    // The first field is the synset id (an integer),
+    // the second field is the synonym set (or synset),
+    // and the third field is its dictionary definition (or gloss). For example, the line
+
+    //   36,AND_circuit AND_gate,a circuit in a computer that fires only when all of its inputs fire  
+
+    // means that the synset { AND_circuit, AND_gate } has an id number of 36 and
+    // its gloss is a "circuit in a computer that fires only when all of its inputs fire".
+    // The individual nouns that comprise a synset are separated by spaces (and a synset
+    // element is not permitted to contain a space). The S synset ids are numbered 0 through S − 1;
+    // the id numbers will appear consecutively in the synset file.
     public WordNet(String synsets, String hypernyms) {
+        // < synset id, synonym set >.
         id2synset = new HashMap<Integer, String>();
+
+        // < noun, bag< id > >.
         noun2ids = new HashMap<String, Bag<Integer>>();
 
         readSynsets(synsets);
         readHypernyms(hypernyms);
 
-        sap = new SAP(readHypernyms(hypernyms));
+        //sap = new SAP(readHypernyms(hypernyms));
     }
 
     private void readSynsets(String synsetsFile) {
@@ -52,28 +68,71 @@ public class WordNet {
                     bag = new Bag<Integer>();
                     bag.add(id);
                     noun2ids.put(noun, bag);
-                } else {
+                }
+                else {
                     bag.add(id);
                 }
             }
         }
     }
 
+    private Digraph readHypernyms(String hypernymsFile) {
+        Digraph digraph = new Digraph(id2synset.size());
+        In input = new In(hypernymsFile);
 
-   // returns all WordNet nouns
-   public Iterable<String> nouns()
+        while (input.hasNextLine()) {
+            String[] tokens = input.readLine().split(",");
+            int id = Integer.parseInt(tokens[0]);
+            for (int i = 1, sz = tokens.length; i < sz; i++) {
+                digraph.addEdge(id, Integer.parseInt(tokens[i]));
+            }
+        }
 
-   // is the word a WordNet noun?
-   public boolean isNoun(String word)
+        verifyCycle(digraph);
+        verifyRoot(digraph);
 
-   // distance between nounA and nounB (defined below)
-   public int distance(String nounA, String nounB)
+        return digraph;
+    }
 
-   // a synset (second field of synsets.txt) that is the common ancestor of nounA and nounB
-   // in a shortest ancestral path (defined below)
-   public String sap(String nounA, String nounB)
+    private void verifyCycle(Digraph digraph) {
+        DirectedCycle directedCycle = new DirectedCycle(digraph);
+        
+        if (directedCycle.hasCycle()) {
+            throw new IllegalArgumentException();
+        }
+    }
 
-   // do unit testing of this class
-   public static void main(String[] args)
+    private void verifyRoot(Digraph digraph) {
+        int roots = 0;
+
+        for (int i = 0, sz = digraph.V(); i < sz; i++) {
+            if (!digraph.adj(i).iterator().hasNext()) {
+                roots += 1;
+            }
+        }
+
+        if (roots != 1) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    // returns all WordNet nouns
+    //public Iterable<String> nouns()
+
+    // is the word a WordNet noun?
+    //public boolean isNoun(String word)
+
+    // distance between nounA and nounB (defined below)
+    //public int distance(String nounA, String nounB)
+
+    // a synset (second field of synsets.txt) that is the common ancestor of nounA and nounB
+    // in a shortest ancestral path (defined below)
+    //public String sap(String nounA, String nounB)
+
+    // do unit testing of this class
+    public static void main(String[] args) {
+        WordNet wordNet = new WordNet(args[0], args[1]);
+
+    }
 }
 
