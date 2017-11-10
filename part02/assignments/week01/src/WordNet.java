@@ -5,7 +5,7 @@
 // $ checkstyle-algs4 WordNet.java
 
 // To run the PMD tool,
-// $ pmd-algs4 Percolation.java
+// $ pmd-algs4 WordNet.java
 
 // To run the unit tests,
 // $ java-algs4 PercolationVisualizer ../test/percolation/input20.txt
@@ -95,7 +95,7 @@ public class WordNet {
     }
 
     private void verifyCycle(Digraph digraph) {
-        DirectedCycle directedCycle = new DirectedCycle(digraph);
+        final DirectedCycle directedCycle = new DirectedCycle(digraph);
         
         if (directedCycle.hasCycle()) {
             throw new IllegalArgumentException();
