@@ -21,7 +21,7 @@ import java.util.HashMap;
 
 
 public class WordNet {
-    //private final SAP sap;
+    private final SAP sap;
     private final HashMap<Integer, String> id2synset;
     private final HashMap<String, Bag<Integer>> noun2ids;
 
@@ -55,7 +55,7 @@ public class WordNet {
         readSynsets(synsets);
         readHypernyms(hypernyms);
 
-        //sap = new SAP(readHypernyms(hypernyms));
+        sap = new SAP(readHypernyms(hypernyms));
     }
 
     private void readSynsets(String synsetsFile) {
@@ -139,11 +139,21 @@ public class WordNet {
     }
 
     // distance between nounA and nounB (defined below)
-    //public int distance(String nounA, String nounB)
+    public int distance(String nounA, String nounB) {
+        verifyNoun(nounA);
+        verifyNoun(nounB);
 
-    // a synset (second field of synsets.txt) that is the common ancestor of nounA and nounB
-    // in a shortest ancestral path (defined below)
-    //public String sap(String nounA, String nounB)
+        return sap.length(noun2ids.get(nounA), noun2ids.get(nounB));        
+    }
+
+    // A synset (second field of synsets.txt) that is the common ancestor of nounA and nounB
+    // in a shortest ancestral path (defined below).
+    public String sap(String nounA, String nounB) {
+        verifyNoun(nounA);
+        verifyNoun(nounB);
+
+        return id2synset.get(sap.ancestor(noun2ids.get(nounA), noun2ids.get(nounB)));        
+    }
 
     // do unit testing of this class
     public static void main(String[] args) {
