@@ -31,14 +31,20 @@ public class WordNet {
     // The first field is the synset id (an integer),
     // the second field is the synonym set (or synset),
     // and the third field is its dictionary definition (or gloss). For example, the line
-
-    //   36,AND_circuit AND_gate,a circuit in a computer that fires only when all of its inputs fire  
-
+    //     36,AND_circuit AND_gate,a circuit in a computer that fires only when all of its inputs fire  
     // means that the synset { AND_circuit, AND_gate } has an id number of 36 and
     // its gloss is a "circuit in a computer that fires only when all of its inputs fire".
     // The individual nouns that comprise a synset are separated by spaces (and a synset
     // element is not permitted to contain a space). The S synset ids are numbered 0 through S − 1;
     // the id numbers will appear consecutively in the synset file.
+
+    // The file hypernyms.txt contains the hypernym relationships:
+    // The first field is a synset id; subsequent fields are the id numbers of the synset's hypernyms.
+    // For example, the following line
+    //     164,21012,56099
+    // means that the the synset 164 ("Actifed") has two hypernyms: 21012 ("antihistamine")
+    // and 56099 ("nasal_decongestant"), representing that Actifed is both an antihistamine and a nasal decongestant. 
+
     public WordNet(String synsets, String hypernyms) {
         // < synset id, synonym set >.
         id2synset = new HashMap<Integer, String>();
@@ -117,10 +123,20 @@ public class WordNet {
     }
 
     // returns all WordNet nouns
-    //public Iterable<String> nouns()
+    public Iterable<String> nouns() {
+        return noun2ids.keySet();
+    }
 
     // is the word a WordNet noun?
-    //public boolean isNoun(String word)
+    public boolean isNoun(String word) {
+        return noun2ids.containsKey(word);
+    }
+
+    private void verifyNoun(String noun) {
+        if (!isNoun(noun)) {
+            throw new IllegalArgumentException();
+        }
+    }
 
     // distance between nounA and nounB (defined below)
     //public int distance(String nounA, String nounB)
