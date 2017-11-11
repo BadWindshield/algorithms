@@ -1,9 +1,27 @@
+// To run a unit test,
+// $ java-algs4 SAP ../test/digraph1.txt
 
+// % more digraph1.txt             % java SAP digraph1.txt
+// 13                              3 11
+// 11                              length = 4, ancestor = 1
+//  7  3                            
+//  8  3                           9 12
+//  3  1                           length = 3, ancestor = 5
+//  4  1
+//  5  1                           7 2
+//  9  5                           length = 4, ancestor = 0
+// 10  5
+// 11 10                           1 6
+// 12 10                           length = -1, ancestor = -1
+//  1  0
+//  2  0
 
 
 import edu.princeton.cs.algs4.Digraph;
 import edu.princeton.cs.algs4.BreadthFirstDirectedPaths;
-
+import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.StdIn;
+import edu.princeton.cs.algs4.StdOut;
 
 
 // Shortest ancestral path. An ancestral path between two vertices v and w in a digraph is a directed path
@@ -107,7 +125,16 @@ public class SAP {
 
     // do unit testing of this class
     public static void main(String[] args) {
-
+        In in = new In(args[0]);
+        final Digraph G = new Digraph(in);
+        final SAP sap = new SAP(G);
+        while (!StdIn.isEmpty()) {
+            int v = StdIn.readInt();
+            int w = StdIn.readInt();
+            int length   = sap.length(v, w);
+            int ancestor = sap.ancestor(v, w);
+            StdOut.printf("length = %d, ancestor = %d\n", length, ancestor);
+        }
     }
 }
 

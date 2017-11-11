@@ -8,7 +8,7 @@
 // $ pmd-algs4 WordNet.java
 
 // To run the unit tests,
-// $ java-algs4 PercolationVisualizer ../test/percolation/input20.txt
+// $ java-algs4 xx
 
 
 import edu.princeton.cs.algs4.Bag;
