@@ -8,7 +8,7 @@
 // $ pmd-algs4 Percolation.java
 
 // To run the unit tests,
-// $ java-algs4 PercolationVisualizer ../test/percolation/input20.txt
+// $ java-algs4 PercolationVisualizer ../test/input20.txt
 
 
 import edu.princeton.cs.algs4.StdOut;
