@@ -1,3 +1,12 @@
+// To compile this code,
+// $ javac-algs4 SAP.java
+
+// To run the Checkstyle tool,
+// $ checkstyle-algs4 SAP.java
+
+// To run the PMD tool,
+// $ pmd-algs4 SAP.java
+
 // To run a unit test,
 // $ java-algs4 SAP ../test/digraph1.txt
 
@@ -56,8 +65,9 @@ public class SAP {
 
     // constructor takes a digraph (not necessarily a DAG)
     public SAP(Digraph G) {
-        if (G == null)
-            throw new NullPointerException();
+        if (G == null) {
+            throw new IllegalArgumentException();
+        }
         diGraph = new Digraph(G);
     }
 
@@ -102,7 +112,7 @@ public class SAP {
     // length of shortest ancestral path between any vertex in v and any vertex in w; -1 if no such path
     public int length(Iterable<Integer> v, Iterable<Integer> w) {
         if (v == null || w == null) {
-            throw new NullPointerException();
+            throw new IllegalArgumentException();
         }
 
         final BreadthFirstDirectedPaths bfs1 = new BreadthFirstDirectedPaths(diGraph, v);
@@ -114,7 +124,7 @@ public class SAP {
     // a common ancestor that participates in shortest ancestral path; -1 if no such path
     public int ancestor(Iterable<Integer> v, Iterable<Integer> w) {
         if (v == null || w == null) {
-            throw new NullPointerException();
+            throw new IllegalArgumentException();
         }
 
         final BreadthFirstDirectedPaths bfs1 = new BreadthFirstDirectedPaths(diGraph, v);
