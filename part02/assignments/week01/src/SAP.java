@@ -129,10 +129,10 @@ public class SAP {
         final Digraph G = new Digraph(in);
         final SAP sap = new SAP(G);
         while (!StdIn.isEmpty()) {
-            int v = StdIn.readInt();
-            int w = StdIn.readInt();
-            int length   = sap.length(v, w);
-            int ancestor = sap.ancestor(v, w);
+            final int v = StdIn.readInt();
+            final int w = StdIn.readInt();
+            final int length   = sap.length(v, w);
+            final int ancestor = sap.ancestor(v, w);
             StdOut.printf("length = %d, ancestor = %d\n", length, ancestor);
         }
     }
