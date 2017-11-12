@@ -35,6 +35,8 @@
 //  4  5  6 
 //  7  8  0 
 
+// We need to ask for additional memory for more difficult puzzles.
+// $ java-algs4 Solver -Xmx6400m ../test/puzzle48.txt
 
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;

@@ -7,7 +7,7 @@
  *  on the command line and finds the minimum number of moves to
  *  reach the goal state.
  *
- *  % java-algs4 PuzzleChecker ../test/puzzle*.txt
+ *  % java-algs4 -Xmx6400m PuzzleChecker ../test/puzzle*.txt
  *  puzzle00.txt: 0
  *  puzzle01.txt: 1
  *  puzzle02.txt: 2
