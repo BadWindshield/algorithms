@@ -44,15 +44,13 @@ import edu.princeton.cs.algs4.MinPQ;
 
 public class Solver {
 
-    private MinPQ<Node> pq, pq_twin;
-
     // The stack containing the solution.
     private Stack<Board> stack;
 
     private class Node implements Comparable<Node> {
-        private Board board;
-        private int moves;
-        private Node prev;
+        final private Board board;
+        final private int moves;
+        final private Node prev;
 
         public Node(Board b, int moves, Node prev) {
             this.board = b;
@@ -92,8 +90,8 @@ public class Solver {
             throw new IllegalArgumentException();
         }
 
-        pq = new MinPQ<Node>();
-        pq_twin = new MinPQ<Node>();
+        MinPQ<Node> pq = new MinPQ<Node>();
+        MinPQ<Node> pq_twin = new MinPQ<Node>();
 
         {
             Node node = new Node(initial, 0, null);
@@ -158,8 +156,12 @@ public class Solver {
 
     // is the initial board solvable?
     public boolean isSolvable() {
-        if (stack == null) { return false; }
-        else { return true; }
+        if (stack == null) {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
     // min number of moves to solve initial board; -1 if no solution
