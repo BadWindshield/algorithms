@@ -45,8 +45,8 @@ public class Board {
         }
 
         // Compute the distances.
-        hamming = hamming();
-        manhattan = manhattan();
+        hamming = privHamming();
+        manhattan = privManhattan();
     }
 
     // number of blocks out of place
