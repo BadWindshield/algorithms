@@ -88,7 +88,7 @@ public class FastCollinearPoints {
 
             while (kStop <= m-1) {
                 while (kStop <= m-1 && 
-                       almostEqual(p.slopeTo(ptSlopeArray[kStart]), p.slopeTo(ptSlopeArray[kStop]), 1e-9)) {
+                    almostEqual(p.slopeTo(ptSlopeArray[kStart]), p.slopeTo(ptSlopeArray[kStop]), 1e-9)) {
                     // Advance to past the end of the block.
                     // StdOut.println( "abc: i = " + i + "; N = " + N + "; M = " + M 
                     //                 + "; k_start = " + k_start + "; k_stop = " + k_stop );
@@ -116,7 +116,17 @@ public class FastCollinearPoints {
     }
 
     private static boolean almostEqual(double a, double b, double eps) {
-        return Math.abs(a-b) < eps;
+        boolean retVal = false;
+        if (a == Double.POSITIVE_INFINITY && b == Double.POSITIVE_INFINITY) {
+            retVal = true;
+        }
+        else if (a == Double.NEGATIVE_INFINITY && b == Double.NEGATIVE_INFINITY) {
+            retVal = true;
+        }
+        else {
+            retVal = Math.abs(a-b) < eps;
+        }
+        return retVal;
     }
 
     // the number of line segments
