@@ -48,9 +48,9 @@ public class Solver {
     private Stack<Board> stack;
 
     private class Node implements Comparable<Node> {
-        final private Board board;
-        final private int moves;
-        final private Node prev;
+        private final Board board;
+        private final int moves;
+        private final Node prev;
 
         public Node(Board b, int moves, Node prev) {
             this.board = b;
@@ -65,19 +65,27 @@ public class Solver {
         Node getNodePrev() { return prev; }
 
         public int compareTo(Node rhs) {
-            final int A_manh = this.board.manhattan();
-            final int B_manh = rhs.board.manhattan();
-            final int A = A_manh + this.moves;
-            final int B = B_manh + rhs.moves;
-            if (A < B) {
+            final int aManh = this.board.manhattan();
+            final int bManh = rhs.board.manhattan();
+            final int a = aManh + this.moves;
+            final int b = bManh + rhs.moves;
+            if (a < b) {
                 return -1;
-            } else if (A > B) {
+            }
+            else if (a > b) {
                 return 1;
-            } else {
+            }
+            else {
                 // Break ties.
-                if (A_manh < B_manh) { return -1; }
-                else if (A_manh > B_manh) { return 1;}
-                else { return 0; }
+                if (aManh < bManh) {
+                    return -1;
+                }
+                else if (aManh > bManh) {
+                    return 1;
+                }
+                else {
+                    return 0;
+                }
             }
         }
 
@@ -91,63 +99,63 @@ public class Solver {
         }
 
         MinPQ<Node> pq = new MinPQ<Node>();
-        MinPQ<Node> pq_twin = new MinPQ<Node>();
+        MinPQ<Node> pqTwin = new MinPQ<Node>();
 
-        {
-            Node node = new Node(initial, 0, null);
-            pq.insert(node);
+        pq.insert(new Node(initial, 0, null));
+        pqTwin.insert(new Node(initial.twin(), 0, null));
 
-            Node node_twin = new Node(initial.twin(), 0, null);
-            pq_twin.insert(node_twin);
-        }
-
-        //
+        /////
         // Solve the 2 puzzles here.
-        //
+        /////
         stack = new Stack<Board>();
 
-        Node curr_node = null;
-        boolean bFound = false, bFound_twin = false;
+        Node currNode = null;
+        boolean bFound = false, bFoundTwin = false;
         do {
             // remove the search node with the minimum priority from the PQ.
-            curr_node = pq.delMin();
-            Board curr_board = curr_node.getBoard();
-            Node prev_node = curr_node.getNodePrev();
+            currNode = pq.delMin();
+            Board currBoard = currNode.getBoard();
+            Node prevNode = currNode.getNodePrev();
 
-            Node curr_node_twin = pq_twin.delMin();
-            Board curr_board_twin = curr_node_twin.getBoard();
-            Node prev_node_twin = curr_node_twin.getNodePrev();
+            Node currNodeTwin = pqTwin.delMin();
+            Board currBoardTwin = currNodeTwin.getBoard();
+            Node prevNodeTwin = currNodeTwin.getNodePrev();
 
             // insert all neighboring search nodes into the PQ.
-            for (Board neighbor : curr_board.neighbors()) {
-                if ( prev_node != null && prev_node.getBoard().equals(neighbor) ) {
+            for (Board neighbor : currBoard.neighbors()) {
+                if (prevNode != null && prevNode.getBoard().equals(neighbor)) {
                     // critical optimization.
                 } else {
-                    Node node = new Node(neighbor, curr_node.getMoves()+1, curr_node);
+                    Node node = new Node(neighbor, currNode.getMoves()+1, currNode);
                     pq.insert(node);
                 }
             }
 
-            for (Board neighbor : curr_board_twin.neighbors()) {
-                if ( prev_node_twin != null && prev_node_twin.getBoard().equals(neighbor) ) {
+            for (Board neighbor : currBoardTwin.neighbors()) {
+                if (prevNodeTwin != null && prevNodeTwin.getBoard().equals(neighbor)) {
                     // critical optimization.
                 } else {
-                    Node node = new Node(neighbor, curr_node_twin.getMoves()+1, curr_node_twin);
-                    pq_twin.insert(node);
+                    Node node = new Node(neighbor, currNodeTwin.getMoves()+1, currNodeTwin);
+                    pqTwin.insert(node);
                 }
             }
 
-            if ( curr_node.getBoard().isGoal() ) { bFound = true; }
-            if ( curr_node_twin.getBoard().isGoal() ) { bFound_twin = true; }
-        } while ( !bFound && !bFound_twin );
-
-        if ( bFound ) { 
-            // back track
-            while (curr_node != null) {
-                stack.push( curr_node.getBoard() );
-                curr_node = curr_node.getNodePrev();
+            if (currNode.getBoard().isGoal()) {
+                bFound = true;
             }
-        } else { 
+            if (currNodeTwin.getBoard().isGoal()) {
+                bFoundTwin = true;
+            }
+        } while (!bFound && !bFoundTwin);
+
+        if (bFound) { 
+            // back track
+            while (currNode != null) {
+                stack.push(currNode.getBoard());
+                currNode = currNode.getNodePrev();
+            }
+        }
+        else { 
             // The twin was solved.
             stack = null;
         }
@@ -156,12 +164,7 @@ public class Solver {
 
     // is the initial board solvable?
     public boolean isSolvable() {
-        if (stack == null) {
-            return false;
-        }
-        else {
-            return true;
-        }
+        return (stack != null);
     }
 
     // min number of moves to solve initial board; -1 if no solution
@@ -183,10 +186,10 @@ public class Solver {
     public static void main(String[] args) {
         // create initial board from file
         In in = new In(args[0]);
-        int N = in.readInt();
-        int[][] blocks = new int[N][N];
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
+        int n = in.readInt();
+        int[][] blocks = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
                 blocks[i][j] = in.readInt();
             }
         }
