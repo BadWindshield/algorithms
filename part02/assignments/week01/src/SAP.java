@@ -37,7 +37,7 @@ import edu.princeton.cs.algs4.StdOut;
 // from v to a common ancestor x, together with a directed path from w to the same ancestor x. A shortest
 // ancestral path is an ancestral path of minimum total length.
 public class SAP {
-    private Digraph diGraph;
+    private final Digraph diGraph;
 
     private class Result {
         private int length;
@@ -74,7 +74,7 @@ public class SAP {
     // length of shortest ancestral path between v and w; -1 if no such path
     public int length(int v, int w) {
         if (v < 0 || v > diGraph.V() || w < 0 || w > diGraph.V()) {
-            throw new IndexOutOfBoundsException();
+            throw new IllegalArgumentException();
         }
 
         final BreadthFirstDirectedPaths bfs1 = new BreadthFirstDirectedPaths(diGraph, v);
@@ -86,7 +86,7 @@ public class SAP {
     // a common ancestor of v and w that participates in a shortest ancestral path; -1 if no such path
     public int ancestor(int v, int w) {
         if (v < 0 || v > diGraph.V() || w < 0 || w > diGraph.V()) {
-            throw new IndexOutOfBoundsException();
+            throw new IllegalArgumentException();
         }
 
         final BreadthFirstDirectedPaths bfs1 = new BreadthFirstDirectedPaths(diGraph, v);

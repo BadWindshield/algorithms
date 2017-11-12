@@ -126,6 +126,9 @@ public class WordNet {
 
     // is the word a WordNet noun?
     public boolean isNoun(String word) {
+        if (word == null) {
+            throw new IllegalArgumentException();
+        }
         return noun2ids.containsKey(word);
     }
 
@@ -154,7 +157,7 @@ public class WordNet {
 
     // do unit testing of this class
     public static void main(String[] args) {
-        WordNet wordNet = new WordNet(args[0], args[1]);
+        //WordNet wordNet = new WordNet(args[0], args[1]);
 
     }
 }
