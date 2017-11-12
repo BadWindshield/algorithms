@@ -33,7 +33,7 @@ public class FastCollinearPoints {
 
         // Check for collinear points.
         final int n = points.length;
-        Point[] ptArray = (Point[]) new Point[n];
+        Point[] ptArray = new Point[n];
         for (int k = 0; k < n; ++k) {
             if (points[k] == null) {
                 throw new IllegalArgumentException();
@@ -58,7 +58,7 @@ public class FastCollinearPoints {
 
             // Load the rest of the (N-i-1) points into the ptSlopeArray.
             final int m = n-1;
-            Point[] ptSlopeArray = (Point[]) new Point[m];
+            Point[] ptSlopeArray = new Point[m];
             for (int j = 0, k = 0; j < n; j++) {
                 if (j == i) {
                     // skip this point
@@ -88,7 +88,7 @@ public class FastCollinearPoints {
 
             while (kStop <= m-1) {
                 while (kStop <= m-1 && 
-                       p.slopeTo(ptSlopeArray[kStart]) == p.slopeTo(ptSlopeArray[kStop])) {
+                       almostEqual(p.slopeTo(ptSlopeArray[kStart]), p.slopeTo(ptSlopeArray[kStop]), 1e-6)) {
                     // Advance to past the end of the block.
                     // StdOut.println( "abc: i = " + i + "; N = " + N + "; M = " + M 
                     //                 + "; k_start = " + k_start + "; k_stop = " + k_stop );
@@ -113,6 +113,10 @@ public class FastCollinearPoints {
             }
         }
 
+    }
+
+    private static boolean almostEqual(double a, double b, double eps) {
+        return Math.abs(a-b) < eps;
     }
 
     // the number of line segments

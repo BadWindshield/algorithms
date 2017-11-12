@@ -23,7 +23,6 @@ import edu.princeton.cs.algs4.StdDraw;
 public class BruteCollinearPoints {
     private final ArrayList<LineSegment> segments = new ArrayList<LineSegment>();
 
-
     // finds all line segments containing 4 or more points
     public BruteCollinearPoints(Point[] points) {
 
@@ -33,7 +32,7 @@ public class BruteCollinearPoints {
 
         // Check for collinear points.
         final int n = points.length;
-        Point[] ptArray = (Point[]) new Point[n];
+        Point[] ptArray = new Point[n];
         for (int k = 0; k < n; ++k) {
             if (points[k] == null) {
                 throw new IllegalArgumentException();
@@ -63,7 +62,7 @@ public class BruteCollinearPoints {
                     final Point r = ptArray[k];
                     final double slope2 = p.slopeTo(r);
 
-                    if (slope1 == slope2) {
+                    if (almostEqual(slope1, slope2, 1e-6)) {
                         // We can check the 3rd slope now.
                         for (int m = k + 1; m < n; ++m) {
                             final Point s = ptArray[m];
@@ -79,6 +78,10 @@ public class BruteCollinearPoints {
             }
         }
 
+    }
+
+    private static boolean almostEqual(double a, double b, double eps) {
+        return Math.abs(a-b) < eps;
     }
 
     // the number of line segments
