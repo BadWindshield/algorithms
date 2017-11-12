@@ -62,13 +62,13 @@ public class BruteCollinearPoints {
                     final Point r = ptArray[k];
                     final double slope2 = p.slopeTo(r);
 
-                    if (almostEqual(slope1, slope2, 1e-6)) {
+                    if (almostEqual(slope1, slope2, 1e-9)) {
                         // We can check the 3rd slope now.
                         for (int m = k + 1; m < n; ++m) {
                             final Point s = ptArray[m];
                             final double slope3 = p.slopeTo(s);
                               
-                            if (slope1 == slope3) {
+                            if (almostEqual(slope1, slope3, 1e-9)) {
                                 // StdOut.println( p + " -> " + q + " -> " + r + " -> " + s );
                                 segments.add(new LineSegment(p, s));
                             }

@@ -88,7 +88,7 @@ public class FastCollinearPoints {
 
             while (kStop <= m-1) {
                 while (kStop <= m-1 && 
-                       almostEqual(p.slopeTo(ptSlopeArray[kStart]), p.slopeTo(ptSlopeArray[kStop]), 1e-6)) {
+                       almostEqual(p.slopeTo(ptSlopeArray[kStart]), p.slopeTo(ptSlopeArray[kStop]), 1e-9)) {
                     // Advance to past the end of the block.
                     // StdOut.println( "abc: i = " + i + "; N = " + N + "; M = " + M 
                     //                 + "; k_start = " + k_start + "; k_stop = " + k_stop );
