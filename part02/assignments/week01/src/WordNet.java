@@ -50,9 +50,9 @@ public class WordNet {
         noun2ids = new HashMap<String, Bag<Integer>>();
 
         readSynsets(synsets);
-        readHypernyms(hypernyms);
+        final Digraph diGraph = readHypernyms(hypernyms);
 
-        sap = new SAP(readHypernyms(hypernyms));
+        sap = new SAP(diGraph);
     }
 
     private void readSynsets(String synsetsFile) {
@@ -60,8 +60,8 @@ public class WordNet {
         Bag<Integer> bag;
 
         while (input.hasNextLine()) {
-            String[] tokens = input.readLine().split(",");
-            int id = Integer.parseInt(tokens[0]);
+            final String[] tokens = input.readLine().split(",");
+            final int id = Integer.parseInt(tokens[0]);
             id2synset.put(id, tokens[1]);
 
             for (String noun : tokens[1].split(" ")) {
@@ -84,8 +84,8 @@ public class WordNet {
         In input = new In(hypernymsFile);
 
         while (input.hasNextLine()) {
-            String[] tokens = input.readLine().split(",");
-            int id = Integer.parseInt(tokens[0]);
+            final String[] tokens = input.readLine().split(",");
+            final int id = Integer.parseInt(tokens[0]);
             for (int i = 1, sz = tokens.length; i < sz; i++) {
                 digraph.addEdge(id, Integer.parseInt(tokens[i]));
             }
